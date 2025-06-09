@@ -6,6 +6,7 @@ import SearchBox from "../SearchBox/SearchBox";
 // import Pagination from "../Pagination/Pagination";
 import NoteList from "../NoteList/NoteList";
 import NoteModal from "../NoteModal/NoteModal"
+import { fetchNotes } from "../srvices/noteService";
 import { type Note } from "../types/note"
 import type { GetNotes } from "../srvices/noteService";
 import css from "./App.module.css";
@@ -63,8 +64,7 @@ export default function App() {
             <Toaster />  
 		    {/* Кнопка створення нотатки */}
             </header>
-            <NoteList />
-            {data?.notes && data.notes.length > 0 && <NoteList onSelect={openModal} movies={data.notes} />}
+            {data?.notes && data.notes.length > 0 && <NoteList onSelect={openModal} notes={data.notes} />}
             {selectedNote !== null && (<NoteModal onClose={closeModal} note={selectedNote} />)} 
         </div>
     )

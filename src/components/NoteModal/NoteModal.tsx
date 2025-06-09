@@ -50,7 +50,7 @@ export default function NoteModal({ note, onClose }: NoteModalProps) {
                 </button>
                 <div className={css.content}>
                     <h2>{note.title}</h2>
-                    <p>{note.conetent}</p>
+                    <p>{note.content}</p>
                     <p>{note.tag}</p>
                 </div>
             </div>

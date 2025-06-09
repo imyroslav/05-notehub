@@ -1,4 +1,4 @@
-import styles from "./SearchBox.module.css";
+import css from "./SearchBox.module.css";
 import toast from "react-hot-toast";
 
 interface SearchBoxProps {
@@ -13,19 +13,21 @@ export default function SearchBox({ onSubmit }: SearchBoxProps) {
         const query = formData.get("query") as string;
         onSubmit(query);
     }
-    return;
-
-    <form className={styles.form} action={handleSubmit}>
+    return (
+        <form className={css.form} action={handleSubmit}>
         <input
-            className={styles.input}
+            className={css.input}
             type="text"
-            name="terssera"
+            name="query"
             autoComplete="off"
             placeholder="Search notes..."
             autoFocus
         />
-        <button className={styles.button} type="submit">
-             Search
+        <button className={css.button} type="submit">
+            Search
         </button>
     </form>
+    )
+
+    
 }
