@@ -1,17 +1,15 @@
 import css from "./SearchBox.module.css";
-import toast from "react-hot-toast";
+
 
 interface SearchBoxProps {
-    onSubmit: (query: string) => void;
+    value: string;
+    onSearch: (query: string) => void;
 }
-export default function SearchBox({ onSubmit }: SearchBoxProps) {
+export default function SearchBox({ onSearch }: SearchBoxProps) {
     const handleSubmit = (formData: FormData): void => {
-        if (formData.get("query") === "") {
-            toast.error("Please enter your search word")
-            return;
-        }
+        
         const query = formData.get("query") as string;
-        onSubmit(query);
+        onSearch(query);
     }
     return (
         <form className={css.form} action={handleSubmit}>
