@@ -13,7 +13,7 @@ export const fetchNotes = async (
     page: number = 1): Promise<GetNotes> => {
     
     const reqConfig = {
-        url: "https://notehub-public.goit.study/api/notes?search=",
+        url: "https://notehub-public.goit.study/api/notes?search=example&tag=Todo&page=1&perPage=10&sortBy=created",
         headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
