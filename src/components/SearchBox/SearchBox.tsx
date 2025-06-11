@@ -2,14 +2,14 @@ import css from "./SearchBox.module.css";
 
 
 interface SearchBoxProps {
-    value: string;
-    onSearch: (query: string) => void;
+    // value: string;
+    onSubmit: (query: string) => void;
 }
-export default function SearchBox({ onSearch }: SearchBoxProps) {
+export default function SearchBox({ onSubmit }: SearchBoxProps) {
     const handleSubmit = (formData: FormData): void => {
         
         const query = formData.get("query") as string;
-        onSearch(query);
+        onSubmit(query);
     }
     return (
         <form className={css.form} action={handleSubmit}>
