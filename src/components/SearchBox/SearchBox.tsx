@@ -1,31 +1,19 @@
-import css from "./SearchBox.module.css";
-
+import css from './SearchBox.module.css';
 
 interface SearchBoxProps {
-    // value: string;
-    onSubmit: (query: string) => void;
+  value: string;                
+  onSearch: (value: string) => void;
+  
 }
-export default function SearchBox({ onSubmit }: SearchBoxProps) {
-    const handleSubmit = (formData: FormData): void => {
-        
-        const query = formData.get("query") as string;
-        onSubmit(query);
-    }
-    return (
-        <form className={css.form} action={handleSubmit}>
-        <input
-            className={css.input}
-            type="text"
-            name="query"
-            autoComplete="off"
-            placeholder="Search notes..."
-            autoFocus
-        />
-        <button className={css.button} type="submit">
-            Search
-        </button>
-    </form>
-    )
 
-    
+export default function SearchBox({ value, onSearch }: SearchBoxProps) {
+  return (
+    <input
+      className={css.input}
+      type="text"
+      placeholder="Search notes"
+      value={value}          
+      onChange={(e) => onSearch(e.target.value.trim())} 
+    />
+  );
 }

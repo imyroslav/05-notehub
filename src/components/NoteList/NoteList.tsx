@@ -1,32 +1,42 @@
-// import { useQueryClient } from "@tanstack/react-query";
-import { type Note } from "../types/note"
-import css from "./NoteList.module.css";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteNote } from '../services/noteService';
+import type { Note } from '../types/note';
+import css from './NoteList.module.css';
 
 interface NoteListProps {
-    onSelect: (note: Note) => void;
-    notes: Note[];
+  notes: Note[];
 }
 
-export default function NoteList({ onSelect, notes }: NoteListProps) {
-    
-    // const queryClient = useQueryClient();
+export default function NoteList({ notes }: NoteListProps) {
+  const queryClient = useQueryClient();
 
-    return (
-        <ul className={css.list}>
-            {/* Набір елементів списку нотатків */}
-            {notes.map((note) => (
-                <li key={note.id}
-                    className={css.listItem}
-                    onClick={() => onSelect(note)}
-                    role="button"
-                >
-                    <h2 className={css.title}>{note.title}</h2>
-                    <p className={css.content}>{note.content}</p>
-                    <div className={css.footer}>
-                        <span className={css.tag}>{note.tag}</span>
-                        <button className={css.button}>Delete</button>
-                    </div>
-                </li>))}
-        </ul>)
-    
+  const mutation = useMutation({
+    mutationFn: deleteNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
+    },
+  });
+
+  const handleDelete = (id: number) => {
+    mutation.mutate(id);
+  };
+
+  if (!notes.length) return null;
+
+  return (
+    <ul className={css.list}>
+      {notes.map(({ id, title, content, tag }) => (
+        <li key={id} className={css.listItem}>
+          <h2 className={css.title}>{title}</h2>
+          <p className={css.content}>{content}</p>
+          <div className={css.footer}>
+            <span className={css.tag}>{tag}</span> 
+            <button className={css.button} onClick={() => handleDelete(id)}>
+              Delete
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 }
