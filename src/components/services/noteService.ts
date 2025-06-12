@@ -16,9 +16,9 @@ const request = {
 };
 
 export const fetchNotes = async (
-  page = 1,
-  perPage = 12,
-  search = " "
+  page: number = 1,
+  perPage: number = 12,
+  search: string
 ): Promise<GetNotes> => {
   const params: Record<string, string | number> = {
     page,
