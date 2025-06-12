@@ -10,11 +10,10 @@ interface NoteFormProps {
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().min(3).max(50).required('Title is required'),
-  content: Yup.string().max(500, 'Maximum length is 500'),
+  title: Yup.string().min(1).max(30).required("Title is required"),
   tag: Yup.string()
-    .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'], 'Invalid tag')
-    .required('Tag is required'),
+    .oneOf(["Work", "Personal", "Meeting", "Shopping", "Todo"], "Invalid tag")
+    .required("Tag is required"),
 });
 
 export const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
@@ -24,16 +23,16 @@ export const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
     mutationFn: createNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
-      onClose(); // Закриваємо після інвалідейту
+      onClose(); 
     },
     onError: (error) => {
-      console.error('Note creation failed:', error);
+      console.error("Note creation failed:", error);
     },
   });
 
   return (
     <Formik
-      initialValues={{ title: '', content: '', tag: '' }}
+      initialValues={{ title: "", content: "", tag: "" }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
         mutate(values);
@@ -57,11 +56,11 @@ export const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
             <label htmlFor="tag">Tag</label>
             <Field as="select" id="tag" name="tag" className={css.select}>
               <option value="">Select a tag</option>
-              <option value="Todo">Todo</option>
               <option value="Work">Work</option>
               <option value="Personal">Personal</option>
               <option value="Meeting">Meeting</option>
               <option value="Shopping">Shopping</option>
+              <option value="Todo">Todo</option>
             </Field>
             <ErrorMessage name="tag" component="span" className={css.error} />
           </div>

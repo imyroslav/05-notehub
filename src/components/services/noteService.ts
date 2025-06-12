@@ -18,7 +18,7 @@ const request = {
 export const fetchNotes = async (
   page: number = 1,
   perPage: number = 12,
-  search: string
+  search: string = ""
 ): Promise<GetNotes> => {
   const params: Record<string, string | number> = {
     page,
@@ -29,7 +29,7 @@ export const fetchNotes = async (
     params.search = search.trim();
   }
 
-  const response = await axios.get(`${request.url}?search=${params.search}&page=1&perPage=12`, request
+  const response = await axios.get(`${request.url}?search=${search}&page=1&perPage=12`, request
   
   );
 

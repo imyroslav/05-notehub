@@ -53,7 +53,7 @@ export default function App() {
       )}
 
       {isLoading && <p>Loading...</p>}
-      {isError && <p>Something went wrong</p>}
+      {isError && <p>Request failed</p>}
 
       {data && data.notes.length > 0 && (
       <NoteList notes={data.notes} />
