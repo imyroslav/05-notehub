@@ -27,13 +27,21 @@ export default function App() {
   });
 
   return (
-    <>
+    <div className={css.app}>
       <header className={css.toolbar}>
         <SearchBox value={searchTerm} onSearch={handleSearchChange} />
+        {data && data.totalPages > 1 && (
+            <Pagination
+              totalPages={data.totalPages}
+              currentPage={page}
+              onPageChange={setPage}
+            />
+          )}
         <button className={css.button} onClick={() => setIsModalOpen(true)}>
           Create note +
         </button>
       </header>
+      
 
       {isModalOpen && (
         <NoteModal
@@ -48,17 +56,8 @@ export default function App() {
       {isError && <p>Something went wrong</p>}
 
       {data && data.notes.length > 0 && (
-        <>
-          <NoteList notes={data.notes} />
-          {data.totalPages > 1 && (
-            <Pagination
-              totalPages={data.totalPages}
-              currentPage={page}
-              onPageChange={setPage}
-            />
-          )}
-        </>
+      <NoteList notes={data.notes} />
       )}
-    </>
+    </div>
   );
 }
