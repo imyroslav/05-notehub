@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { fetchNotes } from "../services/noteService";
+import { fetchNotes } from "../../services/noteService";
 import SearchBox from "../SearchBox/SearchBox";
 import NoteList from "../NoteList/NoteList";
 import Pagination from "../Pagination/Pagination";
 import { NoteModal } from "../NoteModal/NoteModal";
-import type { GetNotes } from "../services/noteService";
+import type { GetNotes } from "../../services/noteService";
 import { useDebounce } from "use-debounce";
 import css from "../App/App.module.css";
 
