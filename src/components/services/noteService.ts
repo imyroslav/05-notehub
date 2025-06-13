@@ -6,36 +6,28 @@ export interface GetNotes {
   totalPages: number;
 }
 
-
-const request = {
-  url: "https://notehub-public.goit.study/api/notes",
+const request = axios.create({
+  baseURL: "https://notehub-public.goit.study/api",
   headers: {
-    accept: "application/json",
     Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
   },
-};
+});
 
 export const fetchNotes = async (
-  page: number,
+  page: number = 1,
   perPage: number = 12,
   search: string = ""
 ): Promise<GetNotes> => {
-  const params: Record<string, string | number> = {
-    page,
-    perPage,
-    ...(search !== "" && { search: search })
-  };
 
-  if (search.trim() !== "") {
-    params.search = search.trim();
-  }
+  const response = await request.get("/notes", {
+    params: {
+      page,
+      perPage,
+      ...(search !== "" && { search: search }),
+    }
+  });
 
-  const response = await axios.get(`${request.url}?search=${search}&page=${page}&perPage=12`, 
-    request
-  
-  );
-
-  return response.data;
+  return response.data
 };
 
 export const createNote = async (note: {
@@ -43,12 +35,11 @@ export const createNote = async (note: {
   content: string;
   tag: string;
 }): Promise<Note> => {
-  const response = await axios.post<Note>(`${request.url}`, note,
-    request);
+  const response = await request.post<Note>('/notes', note);
   return response.data;
 };
 
 export const deleteNote = async (id: number): Promise<Note> => {
-  const response = await axios.delete<Note>(`${request.url}/${id}`);
+  const response = await request.delete<Note>(`/notes/${id}`);
   return response.data;
 };
