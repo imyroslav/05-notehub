@@ -16,20 +16,22 @@ const request = {
 };
 
 export const fetchNotes = async (
-  page: number = 1,
+  page: number,
   perPage: number = 12,
   search: string = ""
 ): Promise<GetNotes> => {
   const params: Record<string, string | number> = {
     page,
     perPage,
+    ...(search !== "" && { search: search })
   };
 
   if (search.trim() !== "") {
     params.search = search.trim();
   }
 
-  const response = await axios.get(`${request.url}?search=${search}&page=1&perPage=12`, request
+  const response = await axios.get(`${request.url}?search=${search}&page=${page}&perPage=12`, 
+    request
   
   );
 
