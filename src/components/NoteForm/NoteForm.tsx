@@ -31,12 +31,23 @@ export const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
     },
   });
 
+  interface FieldsValues {
+    title: string,
+    content: string,
+    tag: string,
+  }
+
+  const InitialValues: FieldsValues = {
+    title: "",
+    content: "",
+    tag: ""
+  }
 
   return (
     <Formik
-      initialValues={{ title: "", content: "", tag: "" }}
+      initialValues={ InitialValues }
       validationSchema={validationSchema}
-      onSubmit={(values) => {
+      onSubmit={(values: FieldsValues) => {
         mutate(values);
       }}
     >
