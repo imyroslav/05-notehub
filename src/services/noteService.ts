@@ -13,21 +13,27 @@ const request = axios.create({
   },
 });
 
-export const fetchNotes = async (
-  page: number = 1,
-  perPage: number = 12,
-  search: string = ""
-): Promise<GetNotes> => {
 
+
+export const fetchNotes = async (
+  page: number,
+  perPage: number,
+  search: string
+): Promise<{ notes: Note[]; totalPages: number; }> => {
+  
   const response = await request.get("/notes", {
     params: {
       page,
-      perPage,
+      perPage: 12,
       ...(search !== "" && { search: search }),
     }
   });
 
-  return response.data
+  // return response.data
+  return {
+    notes: response.data.notes,
+    totalPages: response.data.totalPages,
+  };
 };
 
 export const createNote = async (note: {
