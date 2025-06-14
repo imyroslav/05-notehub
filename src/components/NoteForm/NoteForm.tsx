@@ -10,7 +10,8 @@ interface NoteFormProps {
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().min(1).max(30).required("Title is required"),
+  title: Yup.string().min(3).max(50).required("Title is required"),
+  content: Yup.string().max(500, 'Maximum length is 500'),
   tag: Yup.string()
     .oneOf(["Work", "Personal", "Meeting", "Shopping", "Todo"], "Invalid tag")
     .required("Tag is required"),
@@ -29,6 +30,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
       console.error("Note creation failed:", error);
     },
   });
+
 
   return (
     <Formik
