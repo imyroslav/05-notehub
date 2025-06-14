@@ -6,6 +6,14 @@ export interface GetNotes {
   totalPages: number;
 }
 
+export interface Params {
+  params: {
+    page: number;
+    perPage: number;
+    search?: string;
+  }
+}
+
 const request = axios.create({
   baseURL: "https://notehub-public.goit.study/api",
   headers: {
@@ -19,14 +27,16 @@ export const fetchNotes = async (
   page: number,
   perPage: number,
   search: string
-): Promise<{ notes: Note[]; totalPages: number; }> => {
+): Promise<GetNotes> => {
+
+  const params: Params["params"] = {
+    page,
+    perPage: 12,
+    ...(search !== "" && { search: search }),
+  }
   
   const response = await request.get("/notes", {
-    params: {
-      page,
-      perPage: 12,
-      ...(search !== "" && { search: search }),
-    }
+    params
   });
 
   // return response.data
