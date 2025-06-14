@@ -4,11 +4,7 @@ export interface Note {
     id: number,
     title: string,
     content: string,
-    createdAt: string,
-    updatedAt: string,
     tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping',
 }
-
-// const Enum = ["Work", "Personal", "Meeting", " Shopping", "Todo"]
    
   
