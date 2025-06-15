@@ -22,7 +22,7 @@ export default function App() {
 
   const { data, isLoading, isError } = useQuery<GetNotes>({
     queryKey: ['notes', page, debouncedKeyword], 
-    queryFn: () => fetchNotes(page, 12, debouncedKeyword),
+    queryFn: () => fetchNotes(page, debouncedKeyword),
     placeholderData: keepPreviousData,
   });
 
@@ -46,9 +46,6 @@ export default function App() {
       {isModalOpen && (
         <NoteModal
           onClose={() => setIsModalOpen(false)}
-          onSuccess={() => {
-            setIsModalOpen(false);
-          }}
         />
       )}
 

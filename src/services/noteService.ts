@@ -25,7 +25,6 @@ const request = axios.create({
 
 export const fetchNotes = async (
   page: number,
-  perPage: number,
   search: string
 ): Promise<GetNotes> => {
 
